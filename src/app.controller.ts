@@ -15,7 +15,7 @@ export class AppController {
 	@UseGuards(AuthGuard('ldap'))
 	@Post('ldap')
 	ldapLogin(@Req() req) {
-		passport.authenticate('ldap', { session: false });
+		// passport.authenticate('ldap', { session: false });
 		return req.user;
 	}
 }

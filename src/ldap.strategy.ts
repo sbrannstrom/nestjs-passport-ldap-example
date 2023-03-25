@@ -10,12 +10,11 @@ export class LdapStrategy extends PassportStrategy(Strategy, 'ldap') {
 		super({
 			passReqToCallback: true,
 			server: {
-				url: 'ldap://127.0.0.1:389',
-				bindDN: 'root',
+				url: 'ldap://ldap.forumsys.com:389',
+				bindDN: 'cn=read-only-admin,dc=example,dc=com',
 				bindCredentials: 'password',
-				searchBase: 'o=users,o=example.com',
+				searchBase: 'dc=example,dc=com',
 				searchFilter: '(uid={{username}})',
-				searchAttributes: ['displayName', 'mail'],
 			},
 		}, async (req: Request, user: any, done) => {
 			req.user = user;
@@ -24,3 +23,30 @@ export class LdapStrategy extends PassportStrategy(Strategy, 'ldap') {
 	}
 
 }
+
+// Example POST:
+// curl --request POST \
+//   --url http://localhost:3000/ldap \
+//   --header 'Content-Type: application/json' \
+//   --data '{
+// 	"username": "gauss",
+// 	"password": "password"
+// }'
+// 
+// ==============================================
+// 
+// Example response:
+// {
+// 	"dn": "uid=gauss,dc=example,dc=com",
+// 	"controls": [],
+// 	"objectClass": [
+// 		"inetOrgPerson",
+// 		"organizationalPerson",
+// 		"person",
+// 		"top"
+// 	],
+// 	"cn": "Carl Friedrich Gauss",
+// 	"sn": "Gauss",
+// 	"uid": "gauss",
+// 	"mail": "gauss@ldap.forumsys.com"
+// }
