@@ -11,16 +11,32 @@ Created by Simon Brännström.
 ## Installation
 
 ```bash
-$ yarn
+yarn
 ```
 
-## Running the app
+## Running the app (in development mode)
 
 ```bash
-# development
-$ yarn run start
+yarn run start
 ```
+
+## Example LDAP lookup
+
+```bash
+curl --request POST \
+ --url http://localhost:3000/ldap \
+ --header 'Content-Type: application/json' \
+ --data '{"username": "gauss", "password": "password"}'
 ```
+
+## Example response
+
+```bash
+{"dn":"uid=gauss,dc=example,dc=com","controls":[],"objectClass":["inetOrgPerson","organizationalPerson","person","top"],"cn":"Carl Friedrich Gauss","sn":"Gauss","uid":"gauss","mail":"gauss@ldap.forumsys.com"}
+```
+
+
+```bash
 # watch mode
 $ yarn run start:dev
 ```
